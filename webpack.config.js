@@ -21,20 +21,20 @@ const config = {
     new webpack.optimize.DedupePlugin(),
   ] : [],
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['.js', '.jsx'],
   },
   module: {
     loaders: [{
       test: /.jsx?$/,
-      loader: 'babel',
+      loader: 'babel-loader',
       include: APP_DIR,
       query: {
         cacheDirectory: true,
-        presets: ['latest', 'react'],
+        presets: ['latest', 'stage-3', 'react'],
       },
     }, {
       test: /\.css/,
-      loaders: ['style', 'css'],
+      loaders: ['style-loader', 'css-loader'],
       include: APP_DIR,
     }],
   },

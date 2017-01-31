@@ -1,2 +1,14 @@
+# dependencies
 node_modules
+
+# testing
+coverage
+
+# production
+build
 server/env/modes
+
+# misc
+.DS_Store
+.env
+npm-debug.log
