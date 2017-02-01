@@ -1,2 +1,15 @@
+# dependencies
 node_modules
+
+# testing
+coverage
+
+# production
+build
 server/env/modes
+public/dist/*
+
+# misc
+.DS_Store
+.env
+npm-debug.log
