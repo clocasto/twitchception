@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import logo from '../logo.svg';
 import '../App.css';
-import Player from './player.jsx';
-import Chat from './Chat.jsx';
-import Navigation from './navbar.jsx'
+import Player from './player';
+import Chat from './Chat';
+import Navigation from './navbar';
 
 class Main extends Component {
   render() {

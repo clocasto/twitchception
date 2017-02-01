@@ -7,6 +7,7 @@ coverage
 # production
 build
 server/env/modes
+public/dist/*
 
 # misc
 .DS_Store

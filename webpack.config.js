@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const chalk = require('chalk');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const PROD = process.env.NODE_ENV === 'production';
 const BUILD_DIR = path.resolve(__dirname, 'public/dist');
@@ -19,9 +20,10 @@ const config = {
   plugins: PROD ? [
     new webpack.optimize.UglifyJsPlugin({ minimize: true }),
     new webpack.optimize.DedupePlugin(),
-  ] : [],
+    new ExtractTextPlugin('bundle.css'),
+  ] : [new ExtractTextPlugin('bundle.css')],
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['', '.js', '.jsx'],
   },
   module: {
     loaders: [{
@@ -34,11 +36,15 @@ const config = {
       },
     }, {
       test: /\.css/,
-      loaders: ['style-loader', 'css-loader'],
-      include: APP_DIR,
+      loader: ExtractTextPlugin.extract('style-loader', 'css-loader'),
+    }, {
+      test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+      loader: 'url-loader?limit=10000&mimetype=application/font-woff',
+    }, {
+      test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+      loader: 'file-loader',
     }],
   },
 };
 
 module.exports = config;
-
