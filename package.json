@@ -1,7 +1,7 @@
 {
   "name": "twitchception",
   "version": "0.0.1",
-  "description": "A multi-stream, picture-in-picture viewing client for Twitch.tv.",
+  "description": "A multi-stream (picture-in-picture) viewing client for popular social video streaming platform, Twitch.tv.",
   "main": "app.js",
   "scripts": {
     "redis:dev": "redis-server server/env/modes/development/redis.conf",
@@ -13,8 +13,12 @@
     "start": "npm run build:dev & export NODE_ENV=development && nodemon app.js"
   },
   "keywords": [],
-  "author": "",
+  "contributors": ["Alex Bazhenov (https://github.com/Abazhenov)", "Chris LoCasto (https://github.com/clocasto)"],
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clocasto/twitchception"
+  },
   "dependencies": {
     "body-parser": "^1.15.2",
     "bootstrap": "^3.3.7",
@@ -24,8 +28,6 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
     "express-session": "^1.14.1",
-    "extract-text-webpack-plugin": "^1.0.1",
-    "file-loader": "^0.10.0",
     "helmet": "^3.0.0",
     "morgan": "^1.7.0",
     "muicss": "^0.9.9-rc2",
@@ -46,9 +48,7 @@
     "redis-server": "0.0.3",
     "redux": "^3.6.0",
     "redux-thunk": "^2.1.0",
-    "sequelize": "^3.24.1",
-    "url-loader": "^0.5.7",
-    "webpack": "^1.13.3"
+    "sequelize": "^3.24.1"
   },
   "devDependencies": {
     "babel-core": "^6.18.0",
@@ -62,7 +62,11 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.8.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.10.0",
     "nodemon": "^1.10.2",
-    "style-loader": "^0.13.1"
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.3"
   }
 }
