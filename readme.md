@@ -1,4 +1,4 @@
-twitchception
+twitchception [![Build Status](https://travis-ci.org/clocasto/twitchception.svg?branch=master&version=0_0_1)](https://travis-ci.org/clocasto/twitchception.svg?branch=master&version=0_0_1)
 =========
 
 A multi-stream (picture-in-picture) viewing client for popular social video streaming platform, Twitch.tv.
