@@ -3,9 +3,10 @@ node_modules
 
 # testing
 coverage
+.nyc-output
+.coveralls.yml
 
 # production
-build
 server/env/modes
 public/dist/*
 
