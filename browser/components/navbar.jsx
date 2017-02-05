@@ -70,14 +70,14 @@ class ControlPanel extends Component {
           </Nav>
           <Nav pullRight>
             <Navbar.Form pullRight>
-              <Form onSubmit={this.handleSubmit} inline="true">
+              <Form onSubmit={this.handleSubmit} inline>
                 <Input
                   onChange={this.updateValue}
                   value={this.state.streamToAdd}
                   type="text"
                   ref="newstream" // eslint-disable-line
                   label="Stream Name"
-                  floatingLabel="true"
+                  floatingLabel
                 />
                 <Button onClick={this.handleSubmit} color="primary">Add Stream</Button>
               </Form>

@@ -6,6 +6,6 @@ import { chat } from './chat';
 import { application } from './application';
 
 
-const rootReducer = combineReducers({ application, chat, pip, controls, routing: routerReducer });
+const rootReducer = combineReducers({ app: application, chat, pip, controls, routing: routerReducer });
 
 export default rootReducer;

@@ -24,7 +24,7 @@ function collect(connect, monitor) {
   };
 }
 
-const Pip = props => props.connectDragSource(<Player {...this.props} />);
+const Pip = props => props.connectDragSource(<Player {...props} />);
 
 Pip.propTypes = {
   // Injected by React DnD:
