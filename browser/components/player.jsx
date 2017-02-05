@@ -1,47 +1,70 @@
-import React, { PropTypes } from 'react';
-import { DragSource } from 'react-dnd';
-import { DragTypes } from '../Constants';
+import React from 'react';
+import { Icon } from 'react-fa';
 
-/**
- * Implements the drag source contract.
- */
-const playerSource = {
-  beginDrag(props) {
-    return {
-      text: props.text,
+
+class Player extends React.Component {
+
+  componentDidMount() {
+    const { info } = this.props;
+
+    const options = {
+      height: '100%',
+      width: '100%',
+      channel: info.stream,
     };
-  },
-};
 
-/**
- * Specifies the props to inject into your component.
- */
-function collect(connect, monitor) {
-  return {
-    connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging(),
-  };
-}
+    this.player = new Twitch.Player(info.name, options);
 
-const propTypes = {
-  text: PropTypes.string.isRequired,
+    this.player.setVolume(0.5);
+    this.player.setQuality(info.size === 'base' ? 'high' : 'low');
+    this.player.setMuted(info.muted ? true : false);
+    this.player.addEventListener(Twitch.Player.PAUSE, () => { console.log('Player is paused!'); });
+  }
 
-  // Injected by React DnD:
-  isDragging: PropTypes.bool.isRequired,
-  connectDragSource: PropTypes.func.isRequired,
-};
+  swap() {
+    this.props.swapPositions(this.props.info.name);
+  }
 
-class Card {
+  close() {
+    this.props.closePlayer(this.props.info.id);
+  }
+
   render() {
-    const { isDragging, connectDragSource, text } = this.props;
-    return connectDragSource(
-      <div style={{ opacity: isDragging ? 0.5 : 1 }}>
-        {text}
-      </div>);
+    const { style, info, pip, dragPip, toggleResize } = this.props;
+
+    const enabler = !!style.enabled;
+    const muted = !!this.props.info.muted;
+
+    if (this.player) this.player.setMuted(muted);
+
+    return (
+      <div style={style} id={info.name} className={enabler ? 'pip' : 'base'}>
+        <div onMouseDown={dragPip} onMouseUp={dragPip} className={enabler ? 'drag' : null}>
+          <Icon className="small-button" name="arrows" />
+        </div>
+        {enabler && (<div>
+          <div className="shield" style={pip.shield} onMouseUp={dragPip} />
+          <div className="resizer" onMouseDown={toggleResize}>
+            <img alt="resize" className="icon" id="resizepng" src="/Resize2.png" />
+          </div>
+          <div className="swapper" onClick={this.swap}>
+            <Icon className="small-button" name="expand" />
+          </div>
+          <div className="closer" onClick={this.close} />
+        </div>)}
+      </div>
+    );
   }
 }
 
-Card.propTypes = propTypes;
+Player.propTypes = {
+  style: React.PropTypes.isRequired,
+  info: React.PropTypes.isRequired,
+  pip: React.PropTypes.isRequired,
+  dragPip: React.PropTypes.isRequired,
+  toggleResize: React.PropTypes.func,
+  swapPositions: React.PropTypes.func,
+  closePlayer: React.PropTypes.func,
+};
 
-// Export the wrapped component:
-export default DragSource(, playerSource, collect)(Player);
+export default Player;
