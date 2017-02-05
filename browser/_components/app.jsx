@@ -5,16 +5,16 @@ import * as creators from '../Redux/actions/creators';
 import Main from './Main';
 
 function mapStateToProps(state) {
-    return {
-        style: state.controls,
-        pip: state.pip,
-        chat: state.chat,
-        app: state.application
-    };
+  return {
+    style: state.controls,
+    pip: state.pip,
+    chat: state.chat,
+    app: state.application,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(creators, dispatch);
+  return bindActionCreators(creators, dispatch);
 }
 
 const App = connect(mapStateToProps, mapDispatchToProps)(Main);

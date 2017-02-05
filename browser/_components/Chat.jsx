@@ -13,7 +13,7 @@ class Chat extends Component {
   render() {
     const { app, chat: { size } } = this.props;
     const activeChat = app.length ?
-      `https${app.find(player => player.size === 'base').source.slice(4)}` : null;
+      app.find(player => player.size === 'base').source : null;
 
     return (
       <div id="chatbox" className="col-md-3 col-lg-3">

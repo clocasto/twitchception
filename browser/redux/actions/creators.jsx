@@ -1,7 +1,9 @@
+import { ActionTypes } from '../../Constants';
+
 export function swapPositions(id) {
   document.getElementById(id).style.setProperty('transform', 'none');
   return {
-    type: 'TOGGLE_POSITIONS',
+    type: ActionTypes.TOGGLE_POSITIONS,
     base: id
   }
 }
@@ -11,7 +13,7 @@ export function dragPip(event) {
   let size = event.type === 'mouseup' ? '0%' : '100%';
   let baseZ = event.type === 'mouseup' ? 1 : -5;
   return {
-    type: 'DRAG_PIP',
+    type: ActionTypes.DRAG_PIP,
     size,
     baseZ
   }
@@ -22,7 +24,7 @@ export function toggleResize(event) {
 
   let status = event.type === 'mouseup' ? false : true;
   return {
-    type: 'ENABLE_RESIZE',
+    type: ActionTypes.ENABLE_RESIZE,
     reference: { x: event.pageX, y: event.pageY },
     status,
     baseZ: -5
@@ -36,7 +38,7 @@ export function resizePip(event) {
   if (event.buttons) {
     size = '100%';
     return {
-      type: 'RESIZE_PIP',
+      type: ActionTypes.RESIZE_PIP,
       end: {
         x: event.clientX,
         y: event.clientY,
@@ -48,7 +50,7 @@ export function resizePip(event) {
   } else {
     size = '0%';
     return {
-      type: 'END_RESIZE_PIP',
+      type: ActionTypes.END_RESIZE_PIP,
       end: {
         x: event.clientX,
         y: event.clientY,
@@ -62,7 +64,7 @@ export function resizePip(event) {
 
 export function resizeChat(height, width) {
   return {
-    type: 'RESIZE_CHAT',
+    type: ActionTypes.RESIZE_CHAT,
     size: {
       height,
       width,
@@ -72,17 +74,17 @@ export function resizeChat(height, width) {
 
 export function switchChannel(name) {
   return {
-    type: 'SWITCH_CHAT',
+    type: ActionTypes.SWITCH_CHAT,
     name,
   };
 }
 
 export function addPlayer(name) {
   return {
-    type: 'ADD_PLAYER',
+    type: ActionTypes.ADD_PLAYER,
     player: {
       name,
-      source: `http://www.twitch.tv/${name}/chat`,
+      source: `https://www.twitch.tv/${name}/chat`,
     },
   };
 }
@@ -90,7 +92,7 @@ export function addPlayer(name) {
 
 export function closePlayer(id) {
   return {
-    type: 'CLOSE_PLAYER',
+    type: ActionTypes.CLOSE_PLAYER,
     id,
   };
 }

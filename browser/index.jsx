@@ -4,7 +4,7 @@ import { render } from 'react-dom';
 import { Router, Route } from 'react-router';
 import { Provider } from 'react-redux';
 import store, { history } from './Redux/store';
-import App from './_components/app';
+import App from './_components/App';
 import './Styles/index.css';
 
 const router = (
