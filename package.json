@@ -6,8 +6,9 @@
   "scripts": {
     "redis:dev": "redis-server server/env/modes/development/redis.conf",
     "redis:prod": "redis-server server/env/modes/production/redis.conf",
-    "build:dev": "npm run clean&& npm run redis:dev & export NODE_ENV=development && webpack -d --watch --display-error-details",
-    "build:prod": "npm run clean&& npm run redis:prod & export NODE_ENV=production && webpack -p",
+    "clean-dist": "rm -rf public/dist/",
+    "build:dev": "npm run clean-dist && npm run redis:dev & export NODE_ENV=development && webpack -d --watch --display-error-details",
+    "build:prod": "npm run clean-dist && npm run redis:prod & export NODE_ENV=production && webpack -p",
     "lint": "node_modules/eslint/bin/eslint.js \"server/**\"",
     "test": "node_modules/.bin/nyc --require babel-core/register ./node_modules/mocha/bin/_mocha tests --recursive",
     "run-coverage": "node_modules/.bin/nyc report --reporter=text-lcov | node_modules/coveralls/bin/coveralls.js",
