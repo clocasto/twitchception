@@ -1,20 +1,33 @@
 {
   "name": "twitchception",
   "version": "0.0.1",
-  "description": "A multi-stream, picture-in-picture viewing client for Twitch.tv.",
+  "description": "A multi-stream (picture-in-picture) viewing client for popular social video streaming platform, Twitch.tv.",
   "main": "app.js",
   "scripts": {
     "redis:dev": "redis-server server/env/modes/development/redis.conf",
     "redis:prod": "redis-server server/env/modes/production/redis.conf",
-    "build:dev": "npm run clean&& npm run redis:dev & export NODE_ENV=development && webpack -d --watch --display-error-details",
-    "build:prod": "npm run clean&& npm run redis:prod & export NODE_ENV=production && webpack -p",
-    "clean": "rm -rf public/dist && mkdir public/dist",
-    "deploy": "npm run build:prod && export NODE_ENV=production && node app.js",
-    "start": "npm run build:dev & export NODE_ENV=development && nodemon app.js"
+    "clean-dist": "rm -rf public/dist/ && mkdir public/dist",
+    "build:dev": "npm run clean-dist && webpack -d --watch --display-error-details",
+    "build:prod": "npm run clean-dist && webpack -p",
+    "lint": "node_modules/eslint/bin/eslint.js \"server/**\"",
+    "test": "node_modules/.bin/nyc --require babel-core/register ./node_modules/mocha/bin/_mocha tests --recursive",
+    "run-coverage": "node_modules/.bin/nyc report --reporter=text-lcov | node_modules/coveralls/bin/coveralls.js",
+    "clean-coverage": "rm -rf .nyc_output && rm -rf coverage",
+    "coverage": "npm run run-coverage && npm run clean-coverage",
+    "pack": "npm run lint && npm run build:prod && npm test",
+    "deploy": "npm run redis:prod & export NODE_ENV=production && node app.js",
+    "start": "npm run build:dev && npm run redis:dev & export NODE_ENV=development && nodemon app.js"
   },
   "keywords": [],
-  "author": "",
+  "contributors": [
+    "Alex Bazhenov (https://github.com/Abazhenov)",
+    "Chris LoCasto (https://github.com/clocasto)"
+  ],
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clocasto/twitchception"
+  },
   "dependencies": {
     "body-parser": "^1.15.2",
     "bootstrap": "^3.3.7",
@@ -24,8 +37,6 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
     "express-session": "^1.14.1",
-    "extract-text-webpack-plugin": "^1.0.1",
-    "file-loader": "^0.10.0",
     "helmet": "^3.0.0",
     "morgan": "^1.7.0",
     "muicss": "^0.9.9-rc2",
@@ -35,7 +46,6 @@
     "pg-native": "^1.10.0",
     "react": "^15.4.1",
     "react-bootstrap": "^0.30.7",
-    "react-dom": "^15.4.1",
     "react-draggable": "^2.2.2",
     "react-fa": "^4.1.2",
     "react-fontawesome": "^1.2.0",
@@ -46,9 +56,7 @@
     "redis-server": "0.0.3",
     "redux": "^3.6.0",
     "redux-thunk": "^2.1.0",
-    "sequelize": "^3.24.1",
-    "url-loader": "^0.5.7",
-    "webpack": "^1.13.3"
+    "sequelize": "^3.24.1"
   },
   "devDependencies": {
     "babel-core": "^6.18.0",
@@ -56,13 +64,27 @@
     "babel-preset-latest": "^6.16.0",
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-3": "^6.22.0",
+    "chai": "^3.5.0",
+    "coveralls": "^2.11.15",
     "css-loader": "^0.25.0",
+    "enzyme": "^2.7.1",
     "eslint": "^3.12.0",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.8.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.10.0",
+    "istanbul": "^0.4.5",
+    "jsdom": "^9.10.0",
+    "mocha": "^3.2.0",
     "nodemon": "^1.10.2",
-    "style-loader": "^0.13.1"
+    "nyc": "^10.1.2",
+    "react-addons-test-utils": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "sinon": "^1.17.7",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.3"
   }
 }

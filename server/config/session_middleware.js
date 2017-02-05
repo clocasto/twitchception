@@ -14,7 +14,7 @@ router.use(session({
 }));
 
 router.use((req, res, next) => {
-  console.dir(req.session, { depth: 4, colors: true });
+  console.dir(req.session, { depth: 4, colors: true }); //eslint-disable-line
   return next();
 });
 
