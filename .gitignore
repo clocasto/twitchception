@@ -3,8 +3,8 @@ node_modules
 
 # testing
 coverage
-.nyc-output
-.nyc-output/*
+.nyc_output
+.nyc_output/*
 .coveralls.yml
 
 # production
