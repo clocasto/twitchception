@@ -38,10 +38,11 @@ class ControlPanel extends Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault();
+    if (e.preventDefault) e.preventDefault();
     this.props.addPlayer(this.state.streamToAdd);
     this.state.streamToAdd = '';
   }
+  
   handleClick(e) {
     e.preventDefault();
     e.stopPropagation();
