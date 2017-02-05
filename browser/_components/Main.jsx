@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import logo from '../logo.svg';
-import '../App.css';
+import '../Styles/App.css';
 import Player from './player';
 import Chat from './Chat';
 import Navigation from './navbar';
