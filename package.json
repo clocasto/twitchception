@@ -6,7 +6,7 @@
   "scripts": {
     "redis:dev": "redis-server server/env/modes/development/redis.conf",
     "redis:prod": "redis-server server/env/modes/production/redis.conf",
-    "clean-dist": "rm -rf public/dist/",
+    "clean-dist": "rm -rf public/dist/ && mkdir public/dist",
     "build:dev": "npm run clean-dist && npm run redis:dev & export NODE_ENV=development && webpack -d --watch --display-error-details",
     "build:prod": "npm run clean-dist && npm run redis:prod & export NODE_ENV=production && webpack -p",
     "lint": "node_modules/eslint/bin/eslint.js \"server/**\"",
