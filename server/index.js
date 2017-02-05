@@ -28,11 +28,9 @@ router.use((info, req, res, next) => { // eslint-disable-line
     return res.sendStatus(info.status);
   } else if (info.status && info.message) {
     return res.status(info.status).send(info);
-  } else {
-    console.error('ERROR:', info);
-    return res.sendStatus(500);
   }
+  console.error('ERROR:', info); // eslint-disable-line
+  return res.sendStatus(500);
 });
 
 module.exports = router;
-

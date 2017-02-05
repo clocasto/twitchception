@@ -7,16 +7,16 @@
     "redis:dev": "redis-server server/env/modes/development/redis.conf",
     "redis:prod": "redis-server server/env/modes/production/redis.conf",
     "clean-dist": "rm -rf public/dist/ && mkdir public/dist",
-    "build:dev": "npm run clean-dist && npm run redis:dev & export NODE_ENV=development && webpack -d --watch --display-error-details",
-    "build:prod": "npm run clean-dist && npm run redis:prod & export NODE_ENV=production && webpack -p",
+    "build:dev": "npm run clean-dist && webpack -d --watch --display-error-details",
+    "build:prod": "npm run clean-dist && webpack -p",
     "lint": "node_modules/eslint/bin/eslint.js \"server/**\"",
     "test": "node_modules/.bin/nyc --require babel-core/register ./node_modules/mocha/bin/_mocha tests --recursive",
     "run-coverage": "node_modules/.bin/nyc report --reporter=text-lcov | node_modules/coveralls/bin/coveralls.js",
     "clean-coverage": "rm -rf .nyc_output && rm -rf coverage",
     "coverage": "npm run run-coverage && npm run clean-coverage",
     "pack": "npm run lint && npm run build:prod && npm test",
-    "deploy": "export NODE_ENV=production && node app.js",
-    "start": "npm run build:dev & export NODE_ENV=development && nodemon app.js"
+    "deploy": "npm run redis:prod & export NODE_ENV=production && node app.js",
+    "start": "npm run build:dev && npm run redis:dev & export NODE_ENV=development && nodemon app.js"
   },
   "keywords": [],
   "contributors": [
@@ -76,6 +76,7 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.10.0",
     "istanbul": "^0.4.5",
+    "jsdom": "^9.10.0",
     "mocha": "^3.2.0",
     "nodemon": "^1.10.2",
     "nyc": "^10.1.2",
