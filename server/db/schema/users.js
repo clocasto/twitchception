@@ -7,56 +7,54 @@ module.exports = db.define('User', {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      isEmail: true
-    }
+      isEmail: true,
+    },
   },
   password: {
     type: Sequelize.STRING(1024),
     allowNull: false,
-    set: function(pw) {
+    set(pw) {
       const salt = db.model('User').generateSalt();
       this.setDataValue('salt', salt);
       this.setDataValue('password', db.model('User').encryptPassword(pw, salt));
-    }
+    },
   },
   name: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
   },
   photo: Sequelize.STRING,
   isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
-    allowNull: false
+    allowNull: false,
   },
   salt: {
     type: Sequelize.STRING(128),
-    allowNull: false
+    allowNull: false,
   },
   subscribe: {
     type: Sequelize.BOOLEAN,
     defaultValue: true,
     allowNull: false,
-  }
+  },
 }, {
   instanceMethods: {
-    sanitize: function() {
-      let password, salt = undefined;
+    sanitize() {
+      let password;
+      let salt;
       return Object.assign(this.toJSON(), { password, salt });
     },
-    correctPassword: function(candidatePassword) {
+    correctPassword(candidatePassword) {
       if (!candidatePassword) {
         return false;
-      } else {
-        return db.model('User').encryptPassword(candidatePassword, this.salt) === this.password;
       }
+      return db.model('User').encryptPassword(candidatePassword, this.salt) === this.password;
     },
   },
   classMethods: {
     generateSalt: () => crypto.randomBytes(64).toString('base64'),
-    encryptPassword: (plainText, salt) => {
-      return crypto.pbkdf2Sync(plainText, salt, 1000, 512, 'sha512').toString('hex');
-    }
+    encryptPassword: (plainText, salt) => crypto
+      .pbkdf2Sync(plainText, salt, 1000, 512, 'sha512').toString('hex'),
   },
 });
-
