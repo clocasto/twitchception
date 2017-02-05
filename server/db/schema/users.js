@@ -41,9 +41,10 @@ module.exports = db.define('User', {
 }, {
   instanceMethods: {
     sanitize() {
-      let password;
-      let salt;
-      return Object.assign(this.toJSON(), { password, salt });
+      const cleanUser = this.toJSON();
+      delete cleanUser.password;
+      delete cleanUser.salt;
+      return cleanUser;
     },
     correctPassword(candidatePassword) {
       if (!candidatePassword) {
@@ -53,8 +54,12 @@ module.exports = db.define('User', {
     },
   },
   classMethods: {
-    generateSalt: () => crypto.randomBytes(64).toString('base64'),
-    encryptPassword: (plainText, salt) => crypto
-      .pbkdf2Sync(plainText, salt, 1000, 512, 'sha512').toString('hex'),
+    generateSalt() {
+      return crypto.randomBytes(64).toString('base64');
+    },
+    encryptPassword(plainText, salt) {
+      return crypto
+        .pbkdf2Sync(plainText, salt, 1000, 512, 'sha512').toString('hex');
+    },
   },
 });
