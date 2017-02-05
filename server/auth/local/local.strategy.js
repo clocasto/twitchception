@@ -7,11 +7,9 @@ module.exports = function strategyModule(db) {
       .then((_user) => {
         if (!_user || !_user.correctPassword(password)) {
           return done(null, false);
-        } else {
-          return done(null, _user);
         }
+        return done(null, _user);
       })
       .catch(done);
   };
 };
-
